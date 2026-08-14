@@ -7,3 +7,6 @@ Workflow: Deploy static site to GitHub Pages.
 Observed run: https://github.com/ajaykedia1992/croshii_new_website/actions/runs/31760874161
 Observed status: failed on the initial deployment run. The specific failing step still needs inspection.
 Failure diagnosed: actions/setup-node attempted pnpm dependency caching before pnpm was installed. The workflow now installs pnpm before running actions/setup-node.
+Second run observed: https://github.com/ajaykedia1992/croshii_new_website/actions/runs/31760953797
+Second run status: failed. The specific error still needs inspection.
+Second failure diagnosed: pnpm/action-setup declared version 10 while package.json declares pnpm 10.4.1. The workflow now defers to the exact version in package.json.
