@@ -327,6 +327,7 @@ export default function Home() {
         return (
         <div className="product-dialog-backdrop" role="presentation" onMouseDown={() => setSelectedProduct(null)}>
           <section className="product-dialog" role="dialog" aria-modal="true" aria-labelledby="product-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
+            <span className="dialog-drawer-handle" aria-hidden="true" />
             <button type="button" className="dialog-close" aria-label="Close product contact options" onClick={() => setSelectedProduct(null)}><X size={19} /></button>
             <div className="dialog-image"><img src={activeColor.image} alt={`${selectedProduct.name} in ${activeColor.name}`} /></div>
             <div className="dialog-content">

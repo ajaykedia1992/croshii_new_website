@@ -10,3 +10,8 @@
 - [x] Validate the corrected popup actions and refreshed production build.
 - [x] Rework the product popup for a comfortable, scrollable, and touch-friendly mobile layout.
 - [x] Validate the repaired mobile popup and production build.
+- [x] Preserve each product image’s full composition in the mobile popup without crop loss.
+- [x] Validate the mobile image-fit correction and production build.
+- [ ] Convert the mobile product sheet into a true bottom drawer with a drag-handle affordance and drawer motion.
+- [x] Convert the mobile product sheet into a true bottom drawer with a drag-handle affordance and drawer motion.
+- [x] Validate the mobile drawer, full-image fit, and production build together.
