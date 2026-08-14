@@ -34,7 +34,7 @@
 - [x] Verify the public GitHub Pages URL serves the Croshii website.
 - [x] Inventory assets in `client/public/assets/` and map them to the current storefront imagery.
 - [x] Replace external Croshii image URLs with local GitHub-served assets.
-- [ ] Validate local asset paths in the GitHub Pages build and hosted site.
+- [x] Validate local asset paths in the GitHub Pages build and hosted site.
 - [x] Display all catalogue products by default and remove the shelf-reveal action.
 - [x] Validate the full catalogue layout and production build.
 - [x] Replace the undersized Croshii mark with a more prominent local brand icon treatment in header and footer.
