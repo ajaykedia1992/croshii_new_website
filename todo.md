@@ -42,3 +42,7 @@
 - [x] Ensure the footer copyright year is generated dynamically from the visitor’s current calendar year.
 - [x] Reduce the studio feature’s image and overall section height while retaining readable editorial content.
 - [x] Hide the page’s visible vertical scrollbar while preserving normal vertical scrolling.
+- [x] Remove the stray `@@` text rendered after the storefront footer.
+- [x] Add a client-side deterrent that disables the standard right-click context menu.
+- [x] Add a client-side deterrent for common developer-tool keyboard shortcuts, including F12.
+- [ ] Build, deploy, and verify the page-artifact correction and interaction deterrents.

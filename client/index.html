@@ -1,31 +1,4 @@
 <!doctype html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Croshii | Premium Growth Systems</title>    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
-  </body>
-
-</html>
-@@
-<!doctype html>
 <html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
@@ -47,6 +20,29 @@
     <meta name="twitter:description" content="Slow-made crochet gifts, bouquet charms, and keepsakes thoughtfully crafted in India." />
     <meta name="twitter:image" content="assets/c1-red.jpg" />
     <title>Croshii | Handmade Crochet for Everyday Living</title>
+    <script>
+      (() => {
+        document.addEventListener("contextmenu", (event) => event.preventDefault(), { capture: true });
+
+        document.addEventListener(
+          "keydown",
+          (event) => {
+            const key = event.key.toLowerCase();
+            const primaryModifier = event.ctrlKey || event.metaKey;
+            const isInspectionShortcut =
+              event.key === "F12" ||
+              (primaryModifier && event.shiftKey && ["i", "j", "c"].includes(key)) ||
+              (primaryModifier && key === "u");
+
+            if (isInspectionShortcut) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          },
+          { capture: true },
+        );
+      })();
+    </script>
     <script type="application/ld+json">
       {
         "@context":"https://schema.org",
