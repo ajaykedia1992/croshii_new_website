@@ -24,3 +24,8 @@
 - [x] Validate the combined drawer motion and vertical mobile navigation.
 - [x] Close the mobile menu when a visitor taps outside the menu panel or header trigger.
 - [x] Validate the completed mobile interaction set and production build.
+- [x] Confirm access to the target GitHub repository and its default branch.
+- [x] Align the static build and Pages workflow with the target repository path.
+- [ ] Push the completed Croshii project to the provided GitHub repository.
+- [ ] Verify the GitHub Pages hosting workflow is ready to publish from the repository.
+- [ ] Use the supplied repository credential only for the authorized push, without storing it in the project.

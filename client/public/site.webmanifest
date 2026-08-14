@@ -7,7 +7,7 @@
   "theme_color": "#2f4b3d",
   "icons": [
     {
-      "src": "/manus-storage/croshii-yarn-knot-logo_aa63d3f3.png",
+      "src": "https://www.croshii.com/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
