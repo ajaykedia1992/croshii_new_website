@@ -28,7 +28,7 @@ type Product = {
   tone: string;
 };
 
-const productImage = (file: string) => `https://www.croshii.com/${file}`;
+const productImage = (file: string) => `${import.meta.env.BASE_URL}assets/${file}`;
 
 const products: Product[] = [
   { name: "Rose Charm", code: "CRS-P001", price: 499, category: "Charms", image: productImage("c1-red.jpg"), tone: "rose" },
@@ -111,7 +111,8 @@ function directWhatsAppLink(product: Product, color: ProductColor) {
 }
 
 function shareOnWhatsApp(product: Product, color: ProductColor) {
-  const shareText = `This ${product.name} in ${color.name} caught my eye at Croshii — ${formatPrice(product.price)}. Have a look: https://www.croshii.com/#collection`;
+  const storeUrl = `${window.location.origin}${import.meta.env.BASE_URL}#collection`;
+  const shareText = `This ${product.name} in ${color.name} caught my eye at Croshii — ${formatPrice(product.price)}. Have a look: ${storeUrl}`;
   return `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 }
 
@@ -120,11 +121,11 @@ export default function Home() {
   const [sortOrder, setSortOrder] = useState<"recommended" | "asc" | "desc">("recommended");
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [showAll, setShowAll] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [isDrawerClosing, setIsDrawerClosing] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -173,7 +174,7 @@ export default function Home() {
     if (sortOrder === "desc") return [...matched].sort((a, b) => b.price - a.price);
     return matched;
   }, [activeCategory, sortOrder]);
-  const shownProducts = activeCategory === "All pieces" && !showAll ? visibleProducts.slice(0, 12) : visibleProducts;
+  const shownProducts = visibleProducts;
 
   return (
     <div className="site-shell">
@@ -183,7 +184,7 @@ export default function Home() {
 
       <header className="site-header" ref={headerRef}>
         <a className="brand-lockup" href="#top" aria-label="Croshii home" onClick={() => setMenuOpen(false)}>
-          <img src="https://www.croshii.com/logo.png" alt="" className="brand-mark" />
+          <span className="brand-symbol" aria-hidden="true"><Flower2 size={31} strokeWidth={1.8} /></span>
           <span>croshii</span>
         </a>
 
@@ -212,7 +213,7 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-visual" aria-label="Handcrafted crochet still life">
-            <img src="https://www.croshii.com/3.png" alt="Crochet flower bouquet with yarn and natural botanicals" />
+            <img src={productImage("c10-cream.jpg")} alt="Handcrafted crochet bouquet in a warm studio setting" />
             <div className="hero-stamp"><Flower2 size={19} /><span>Handmade<br />with warmth</span></div>
             <span className="hero-caption">A quiet study in yarn, bloom &amp; time</span>
           </div>
@@ -231,7 +232,7 @@ export default function Home() {
           <div className="collection-controls" aria-label="Collection filters">
             <div className="category-tabs" role="group" aria-label="Filter product collection">
               {categories.map((category) => (
-                <button key={category} onClick={() => { setActiveCategory(category); setShowAll(category !== "All pieces"); }} className={activeCategory === category ? "is-active" : ""}>{category}</button>
+                <button key={category} onClick={() => setActiveCategory(category)} className={activeCategory === category ? "is-active" : ""}>{category}</button>
               ))}
             </div>
             <label className="sort-select">
@@ -250,7 +251,7 @@ export default function Home() {
               <Fragment key={product.code}>
                 {index === 4 && activeCategory === "All pieces" && (
                   <aside className="catalogue-interlude" aria-label="Croshii maker note">
-                    <div className="interlude-art" aria-hidden="true"><span className="stitch-orbit orbit-one" /><span className="stitch-orbit orbit-two" /><img src="https://www.croshii.com/logo.png" alt="" /></div>
+                    <div className="interlude-art" aria-hidden="true"><span className="stitch-orbit orbit-one" /><span className="stitch-orbit orbit-two" /><Flower2 size={42} /></div>
                     <div className="interlude-copy"><p className="eyebrow eyebrow-light"><span>Studio note</span> The pocket garden</p><h3>Small things, <em>carrying</em> big feeling.</h3><p>Each bloom begins as a yarn line, a patient hand, and an ordinary day made a little more tender.</p></div>
                     <span className="interlude-code">MKR-ED.01</span>
                   </aside>
@@ -269,12 +270,11 @@ export default function Home() {
               </Fragment>
             ))}
           </div>
-          {activeCategory === "All pieces" && !showAll && <div className="shelf-reveal"><span>12 studio pieces, selected for a first look.</span><button onClick={() => setShowAll(true)}>Open the full shelf <ArrowDownRight size={16} /></button></div>}
           <p className="catalogue-note">Looking for something only yours? <a href={orderLink} target="_blank" rel="noreferrer">Bring the idea to the studio <ArrowUpRight size={14} /></a></p>
         </section>
 
         <section className="studio-feature" id="story" aria-labelledby="story-title">
-          <div className="studio-photo"><img src="https://www.croshii.com/craft3.jpg" alt="Crochet yarn, flower in progress, and wooden crochet hook in the Croshii studio" /></div>
+          <div className="studio-photo"><img src={productImage("c6-blue.jpg")} alt="Crochet work in progress in the Croshii studio" /></div>
           <div className="studio-copy">
             <p className="eyebrow eyebrow-light"><span>03</span> The slow work</p>
             <h2 id="story-title">A handmade object<br />has its own <em>rhythm.</em></h2>
@@ -295,7 +295,7 @@ export default function Home() {
             <a href={orderLink} className="button button-primary" target="_blank" rel="noreferrer">Start a custom conversation <MessageCircle size={17} /></a>
           </div>
           <div className="gifting-visual">
-            <img src="https://www.croshii.com/aboutus.jpg" alt="A crocheted gift thoughtfully wrapped in a recycled paper box" />
+            <img src={productImage("c11-pink.jpg")} alt="A handcrafted crocheted gift" />
             <div className="gift-note"><Heart size={16} fill="currentColor" /><span>A little note<br />can come along.</span></div>
           </div>
         </section>
@@ -335,10 +335,10 @@ export default function Home() {
       </main>
 
       <footer className="site-footer">
-        <div className="footer-brand"><a className="brand-lockup" href="#top"><img src="https://www.croshii.com/logo.png" alt="" className="brand-mark" /><span>croshii</span></a><p>Handcrafted crochet pieces designed for everyday living and meaningful gifting.</p></div>
+        <div className="footer-brand"><a className="brand-lockup" href="#top"><span className="brand-symbol" aria-hidden="true"><Flower2 size={31} strokeWidth={1.8} /></span><span>croshii</span></a><p>Handcrafted crochet pieces designed for everyday living and meaningful gifting.</p></div>
         <div className="footer-links"><p>Explore</p><a href="#collection">Collection</a><a href="#story">The craft</a><a href="#gifting">Custom gifting</a></div>
         <div className="footer-links"><p>Keep close</p><a href={instagramLink} target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} /></a><a href={orderLink} target="_blank" rel="noreferrer">Message Croshii <ArrowUpRight size={14} /></a><a href="#faq">FAQs</a></div>
-        <div className="footer-meta"><span>© {new Date().getFullYear()} Croshii</span><span>Made with a slower hand.</span></div>
+        <div className="footer-meta"><span>© {currentYear} Croshii</span><span>Made with a slower hand.</span></div>
       </footer>
 
       {selectedProduct && (() => {

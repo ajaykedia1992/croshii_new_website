@@ -9,7 +9,7 @@ This project is a **frontend-only React, HTML, and CSS site**. It has no databas
 | Visual storefront | Responsive home page, editorial hero, curated product shelf, product filters, FAQ accordions, gifting and craft sections |
 | SEO | Unique page title and description, canonical URL, Open Graph and social metadata, `robots.txt`, `sitemap.xml`, web manifest, and JSON-LD for Organization, WebSite, product collection, and FAQs |
 | GitHub Pages | A ready-to-run workflow at `.github/workflows/deploy-pages.yml` that builds `dist/public` and deploys it when `main` changes |
-| Static assets | Editorial and catalogue photographs are referenced from the current Croshii public domain, so no managed project-only asset URLs are required for GitHub Pages |
+| Static assets | Storefront imagery is served from `client/public/assets/` through Vite’s repository-aware base path, so GitHub Pages and a future custom domain both use your own project assets |
 
 ## Publish through GitHub Pages
 
