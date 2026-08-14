@@ -12,6 +12,9 @@
 - [x] Validate the repaired mobile popup and production build.
 - [x] Preserve each product image’s full composition in the mobile popup without crop loss.
 - [x] Validate the mobile image-fit correction and production build.
-- [ ] Convert the mobile product sheet into a true bottom drawer with a drag-handle affordance and drawer motion.
 - [x] Convert the mobile product sheet into a true bottom drawer with a drag-handle affordance and drawer motion.
 - [x] Validate the mobile drawer, full-image fit, and production build together.
+- [x] Resize the mobile drawer image frame to give portrait product photography the prominence shown in the source image.
+- [x] Validate the revised image scale and production build.
+- [x] Replace the heavy product-card frame with a cleaner white-background image treatment.
+- [x] Validate the updated catalogue treatment on mobile and desktop.
