@@ -29,3 +29,6 @@
 - [x] Push the completed Croshii project to the provided GitHub repository.
 - [x] Verify the GitHub Pages hosting workflow is ready to publish from the repository.
 - [x] Use the supplied repository credential only for the authorized push, without storing it in the project.
+- [x] Identify the live GitHub Pages deployment URL and the source of the reported 404.
+- [x] Correct the Pages configuration or path handling and redeploy if required.
+- [ ] Verify the public GitHub Pages URL serves the Croshii website.
