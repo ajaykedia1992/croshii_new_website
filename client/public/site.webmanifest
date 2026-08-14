@@ -1,0 +1,16 @@
+{
+  "name": "Croshii — Handmade Crochet for Everyday Living",
+  "short_name": "Croshii",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f2ea",
+  "theme_color": "#2f4b3d",
+  "icons": [
+    {
+      "src": "/manus-storage/croshii-yarn-knot-logo_aa63d3f3.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

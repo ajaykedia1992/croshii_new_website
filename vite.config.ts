@@ -206,6 +206,8 @@ function vitePluginStorageProxy(): Plugin {
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig({
+  // Uses / for a custom domain and a repository path when VITE_BASE_PATH is set by GitHub Pages.
+  base: process.env.VITE_BASE_PATH || "/",
   plugins,
   resolve: {
     alias: {
