@@ -59,6 +59,35 @@ const products: Product[] = [
 
 const categories: Category[] = ["All pieces", "Charms", "Bouquets", "Keepsakes"];
 
+type ProductColor = { name: string; hex: string; image: string };
+
+const productColorOptions: Record<string, ProductColor[]> = {
+  "CRS-P001": [{ name: "Dark red", hex: "#8a2528", image: productImage("c1-red.jpg") }],
+  "CRS-P002": [{ name: "Sunshine yellow", hex: "#f5c846", image: productImage("c2-yellow.jpg") }],
+  "CRS-P003": [{ name: "Petal pink", hex: "#e9a5b8", image: productImage("c3-pink.jpg") }, { name: "Berry red", hex: "#c7494e", image: productImage("c3-red.jpg") }],
+  "CRS-P004": [{ name: "Cloud white", hex: "#f7f4ec", image: productImage("c4-white.jpg") }, { name: "Blush pink", hex: "#e8a9bb", image: productImage("c4-pink.jpg") }, { name: "Rose red", hex: "#ca4b51", image: productImage("c4-red.jpg") }],
+  "CRS-P005": [{ name: "Honey yellow", hex: "#f2c84b", image: productImage("c5-yellow.jpg") }],
+  "CRS-P006": [{ name: "Light blue", hex: "#9ccbe4", image: productImage("c6-blue.jpg") }, { name: "Leaf green", hex: "#79aa82", image: productImage("c6-green.jpg") }, { name: "Butter yellow", hex: "#f1d15a", image: productImage("c6-yellow.jpg") }, { name: "Petal pink", hex: "#e7a7b7", image: productImage("c6-pink.jpg") }],
+  "CRS-P007": [{ name: "Lavender", hex: "#b2a6d9", image: productImage("c7-lavender.jpg") }, { name: "Tulip pink", hex: "#e59caf", image: productImage("c7-pink.jpg") }, { name: "Yellow", hex: "#efd155", image: productImage("c7-yellow.jpg") }, { name: "Blue", hex: "#78afd2", image: productImage("c7-blue.jpg") }, { name: "Red", hex: "#c44c4c", image: productImage("c7-red.jpg") }],
+  "CRS-P008": [{ name: "White", hex: "#f6f3ed", image: productImage("c8-white.jpg") }, { name: "Soft beige", hex: "#dbc4a6", image: productImage("c8-cream.jpg") }, { name: "Sky blue", hex: "#91cce7", image: productImage("c8-blue.jpg") }, { name: "Blush pink", hex: "#e7a9b8", image: productImage("c8-pink.jpg") }],
+  "CRS-P009": [{ name: "Sunflower yellow", hex: "#f0c545", image: productImage("c9-yellow.jpg") }],
+  "CRS-P010": [{ name: "Warm cream", hex: "#e7d7bb", image: productImage("c10-cream.jpg") }],
+  "CRS-P011": [{ name: "Peony pink", hex: "#e8a8b8", image: productImage("c11-pink.jpg") }],
+  "CRS-P012": [{ name: "Lavender", hex: "#b4a5d2", image: productImage("c12-lavender.jpg") }],
+  "CRS-P013": [{ name: "Lavender", hex: "#b4a5d2", image: productImage("c13-lavender.jpg") }],
+  "CRS-P014": [{ name: "Daisy white", hex: "#f8f5ee", image: productImage("c19-white.jpg") }],
+  "CRS-P015": [{ name: "Daisy white", hex: "#f8f5ee", image: productImage("c20-white.jpg") }],
+  "CRS-P016": [{ name: "Teddy brown", hex: "#8c624a", image: productImage("c14-brown.jpg") }],
+  "CRS-P017": [{ name: "Sky blue", hex: "#8ec7e4", image: productImage("c15-sky.jpg") }, { name: "Petal pink", hex: "#e7a5b5", image: productImage("c15-pink.jpg") }, { name: "White", hex: "#f7f3ea", image: productImage("c15-white.jpg") }, { name: "Lavender", hex: "#b7aad5", image: productImage("c15-lavender.jpg") }, { name: "Red", hex: "#c94d50", image: productImage("c15-red.jpg") }, { name: "Yellow", hex: "#edca4e", image: productImage("c15-yellow.jpg") }],
+  "CRS-P018": [{ name: "Cloud white", hex: "#f8f4ec", image: productImage("c16-white.jpg") }],
+  "CRS-P019": [{ name: "Blue", hex: "#739bc6", image: productImage("c17-blue.jpg") }],
+  "CRS-P020": [{ name: "Black", hex: "#3d3b3b", image: productImage("c18-black.jpg") }, { name: "White", hex: "#f8f4ec", image: productImage("c18-white.jpg") }],
+  "CRS-P021": [{ name: "Dark red", hex: "#83232a", image: productImage("c21-red.jpg") }],
+  "CRS-P022": [{ name: "Teddy brown", hex: "#8c624a", image: productImage("c22-brown.jpg") }],
+  "CRS-P023": [{ name: "Cloud white", hex: "#f8f4ec", image: productImage("c23-white.jpg") }],
+  "CRS-P024": [{ name: "Choco brown", hex: "#704939", image: productImage("c24-brown.jpg") }],
+};
+
 const faqs = [
   ["What is Croshii?", "Croshii creates handcrafted crochet pieces for everyday living, gifting, and the small moments worth keeping."],
   ["How do I place an order?", "Choose a piece you love and message Croshii directly on Instagram to confirm your order and any personal details."],
@@ -70,10 +99,20 @@ const faqs = [
 
 const orderLink = "https://ig.me/m/croshii_official";
 const instagramLink = "https://www.instagram.com/croshii_official/";
-const whatsappShareLink = (product: Product) => `https://wa.me/?text=${encodeURIComponent(`Hello Croshii, I would love to enquire about ${product.name} (${product.code}) — ${formatPrice(product.price)}.`)}`;
+const CROSHII_WHATSAPP = "918058447000";
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
+}
+
+function directWhatsAppLink(product: Product, color: ProductColor) {
+  const message = `Hello Croshii Team,\n\nI would like to place an order for:\n\n• Product: ${product.name}\n• Product ID: ${product.code}\n• Price: ${formatPrice(product.price)}\n• Colour: ${color.name}\n\nPlease let me know the availability, delivery timeline, and payment process.\n\nThank you.`;
+  return `https://wa.me/${CROSHII_WHATSAPP}?text=${encodeURIComponent(message)}`;
+}
+
+function shareOnWhatsApp(product: Product, color: ProductColor) {
+  const shareText = `This ${product.name} in ${color.name} caught my eye at Croshii — ${formatPrice(product.price)}. Have a look: https://www.croshii.com/#collection`;
+  return `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 }
 
 export default function Home() {
@@ -83,6 +122,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [showAll, setShowAll] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -91,6 +131,21 @@ export default function Home() {
     if (selectedProduct) window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [selectedProduct]);
+
+  const openProductDialog = (product: Product) => {
+    setSelectedProduct(product);
+    setSelectedColor(productColorOptions[product.code][0].name);
+  };
+
+  const shareOnInstagram = async (product: Product, color: ProductColor) => {
+    const shareData = { title: `${product.name} · Croshii`, text: `I found ${product.name} in ${color.name} at Croshii.`, url: "https://www.croshii.com/#collection" };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch { /* The visitor dismissed the native share panel. */ }
+      return;
+    }
+    await navigator.clipboard?.writeText(`${shareData.text} ${shareData.url}`);
+    window.open(instagramLink, "_blank", "noopener,noreferrer");
+  };
 
   const visibleProducts = useMemo(() => {
     const matched = activeCategory === "All pieces" ? products : products.filter((product) => product.category === activeCategory);
@@ -181,7 +236,7 @@ export default function Home() {
                   </aside>
                 )}
                 <article className={`product-card tone-${product.tone}`}>
-                <button type="button" className="product-image-wrap" aria-label={`Open contact options for ${product.name}`} onClick={() => setSelectedProduct(product)}>
+                <button type="button" className="product-image-wrap" aria-label={`Open contact options for ${product.name}`} onClick={() => openProductDialog(product)}>
                   <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
                   <img src={product.image} alt={`${product.name} handcrafted crochet piece`} loading={index > 5 ? "lazy" : "eager"} />
                   <span className="product-hover">Keep this close <ArrowUpRight size={16} /></span>
@@ -266,25 +321,37 @@ export default function Home() {
         <div className="footer-meta"><span>© {new Date().getFullYear()} Croshii</span><span>Made with a slower hand.</span></div>
       </footer>
 
-      {selectedProduct && (
+      {selectedProduct && (() => {
+        const colors = productColorOptions[selectedProduct.code];
+        const activeColor = colors.find((color) => color.name === selectedColor) ?? colors[0];
+        return (
         <div className="product-dialog-backdrop" role="presentation" onMouseDown={() => setSelectedProduct(null)}>
           <section className="product-dialog" role="dialog" aria-modal="true" aria-labelledby="product-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
             <button type="button" className="dialog-close" aria-label="Close product contact options" onClick={() => setSelectedProduct(null)}><X size={19} /></button>
-            <div className="dialog-image"><img src={selectedProduct.image} alt={`${selectedProduct.name} handcrafted crochet piece`} /></div>
+            <div className="dialog-image"><img src={activeColor.image} alt={`${selectedProduct.name} in ${activeColor.name}`} /></div>
             <div className="dialog-content">
               <p className="eyebrow"><span>Studio pick</span> {selectedProduct.code}</p>
               <h2 id="product-dialog-title">{selectedProduct.name}</h2>
               <p className="dialog-price">{formatPrice(selectedProduct.price)}</p>
-              <p>Keep this piece close, or send it to someone you are thinking of. Choose the place that feels most natural to begin the conversation.</p>
+              <p className="dialog-description">Keep this piece close, or send it to someone you are thinking of. Select a colour, then choose how you would like to connect.</p>
+              <div className="dialog-colours" aria-label={`Available colours for ${selectedProduct.name}`}>
+                <span className="dialog-label">Choose a colour</span>
+                <div className="colour-row">{colors.map((color) => <button key={color.name} type="button" className={`colour-swatch ${activeColor.name === color.name ? "is-active" : ""}`} style={{ backgroundColor: color.hex }} onClick={() => setSelectedColor(color.name)} aria-label={`Select ${color.name}`} aria-pressed={activeColor.name === color.name}><span className="sr-only">{color.name}</span></button>)}</div>
+                <span className="chosen-colour">{activeColor.name}</span>
+              </div>
               <div className="dialog-actions">
-                <a href={instagramLink} target="_blank" rel="noreferrer" className="dialog-action dialog-instagram"><Instagram size={18} /><span><strong>Instagram</strong>Message the Croshii studio</span><ArrowUpRight size={17} /></a>
-                <a href={whatsappShareLink(selectedProduct)} target="_blank" rel="noreferrer" className="dialog-action dialog-whatsapp"><MessageCircle size={19} /><span><strong>WhatsApp</strong>Share this piece with someone</span><ArrowUpRight size={17} /></a>
+                <span className="dialog-label">Order with Croshii</span>
+                <a href={directWhatsAppLink(selectedProduct, activeColor)} target="_blank" rel="noreferrer" className="dialog-action dialog-whatsapp"><MessageCircle size={19} /><span><strong>WhatsApp Croshii</strong>Ask about this colour and order</span><ArrowUpRight size={17} /></a>
+                <a href={orderLink} target="_blank" rel="noreferrer" className="dialog-action dialog-instagram"><Instagram size={18} /><span><strong>Instagram Croshii</strong>Message the studio directly</span><ArrowUpRight size={17} /></a>
+                <span className="dialog-label dialog-label-share">Share this piece</span>
+                <div className="dialog-share-grid"><a href={shareOnWhatsApp(selectedProduct, activeColor)} target="_blank" rel="noreferrer" className="dialog-share"><MessageCircle size={16} /> Share on WhatsApp</a><button type="button" className="dialog-share" onClick={() => shareOnInstagram(selectedProduct, activeColor)}><Instagram size={16} /> Share on Instagram</button></div>
               </div>
               <p className="dialog-note">Handmade with care. If it is meant to be yours, the studio will guide you through the next stitch.</p>
             </div>
           </section>
         </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
