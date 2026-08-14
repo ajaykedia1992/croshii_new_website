@@ -2,7 +2,7 @@
  * Garden Atelier Editorial — Croshii’s pages feel like a warm craft catalogue:
  * botanical still lifes, off-centre compositions, Croshii Moss actions, and precise serif/sans hierarchy.
  */
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -70,6 +70,7 @@ const faqs = [
 
 const orderLink = "https://ig.me/m/croshii_official";
 const instagramLink = "https://www.instagram.com/croshii_official/";
+const whatsappShareLink = (product: Product) => `https://wa.me/?text=${encodeURIComponent(`Hello Croshii, I would love to enquire about ${product.name} (${product.code}) — ${formatPrice(product.price)}.`)}`;
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
@@ -81,6 +82,15 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [showAll, setShowAll] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProduct(null);
+    };
+    if (selectedProduct) window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [selectedProduct]);
 
   const visibleProducts = useMemo(() => {
     const matched = activeCategory === "All pieces" ? products : products.filter((product) => product.category === activeCategory);
@@ -171,11 +181,11 @@ export default function Home() {
                   </aside>
                 )}
                 <article className={`product-card tone-${product.tone}`}>
-                <a href={orderLink} target="_blank" rel="noreferrer" className="product-image-wrap" aria-label={`Message Croshii about ${product.name}`}>
+                <button type="button" className="product-image-wrap" aria-label={`Open contact options for ${product.name}`} onClick={() => setSelectedProduct(product)}>
                   <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
                   <img src={product.image} alt={`${product.name} handcrafted crochet piece`} loading={index > 5 ? "lazy" : "eager"} />
-                  <span className="product-hover">Hold this thought <ArrowUpRight size={16} /></span>
-                </a>
+                  <span className="product-hover">Keep this close <ArrowUpRight size={16} /></span>
+                </button>
                 <div className="product-meta">
                   <div><h3>{product.name}</h3><p>Studio piece · {product.code}</p></div>
                   <strong>{formatPrice(product.price)}</strong>
@@ -255,6 +265,26 @@ export default function Home() {
         <div className="footer-links"><p>Keep close</p><a href={instagramLink} target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} /></a><a href={orderLink} target="_blank" rel="noreferrer">Message Croshii <ArrowUpRight size={14} /></a><a href="#faq">FAQs</a></div>
         <div className="footer-meta"><span>© {new Date().getFullYear()} Croshii</span><span>Made with a slower hand.</span></div>
       </footer>
+
+      {selectedProduct && (
+        <div className="product-dialog-backdrop" role="presentation" onMouseDown={() => setSelectedProduct(null)}>
+          <section className="product-dialog" role="dialog" aria-modal="true" aria-labelledby="product-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
+            <button type="button" className="dialog-close" aria-label="Close product contact options" onClick={() => setSelectedProduct(null)}><X size={19} /></button>
+            <div className="dialog-image"><img src={selectedProduct.image} alt={`${selectedProduct.name} handcrafted crochet piece`} /></div>
+            <div className="dialog-content">
+              <p className="eyebrow"><span>Studio pick</span> {selectedProduct.code}</p>
+              <h2 id="product-dialog-title">{selectedProduct.name}</h2>
+              <p className="dialog-price">{formatPrice(selectedProduct.price)}</p>
+              <p>Keep this piece close, or send it to someone you are thinking of. Choose the place that feels most natural to begin the conversation.</p>
+              <div className="dialog-actions">
+                <a href={instagramLink} target="_blank" rel="noreferrer" className="dialog-action dialog-instagram"><Instagram size={18} /><span><strong>Instagram</strong>Message the Croshii studio</span><ArrowUpRight size={17} /></a>
+                <a href={whatsappShareLink(selectedProduct)} target="_blank" rel="noreferrer" className="dialog-action dialog-whatsapp"><MessageCircle size={19} /><span><strong>WhatsApp</strong>Share this piece with someone</span><ArrowUpRight size={17} /></a>
+              </div>
+              <p className="dialog-note">Handmade with care. If it is meant to be yours, the studio will guide you through the next stitch.</p>
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   );
 }
