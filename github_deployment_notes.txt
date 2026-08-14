@@ -1,0 +1,9 @@
+GitHub deployment verification notes
+
+Repository: https://github.com/ajaykedia1992/croshii_new_website
+Initial state observed: public and empty.
+Push result: main branch pushed successfully at commit c91047c735dae49428ef274e1f6239ab20d6532b.
+Workflow: Deploy static site to GitHub Pages.
+Observed run: https://github.com/ajaykedia1992/croshii_new_website/actions/runs/31760874161
+Observed status: failed on the initial deployment run. The specific failing step still needs inspection.
+Failure diagnosed: actions/setup-node attempted pnpm dependency caching before pnpm was installed. The workflow now installs pnpm before running actions/setup-node.
