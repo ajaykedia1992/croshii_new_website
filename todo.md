@@ -8,3 +8,5 @@
 - [x] Replace the generic WhatsApp share action with direct Croshii WhatsApp contact.
 - [x] Add separate Instagram and WhatsApp sharing actions for recipients outside Croshii.
 - [x] Validate the corrected popup actions and refreshed production build.
+- [x] Rework the product popup for a comfortable, scrollable, and touch-friendly mobile layout.
+- [x] Validate the repaired mobile popup and production build.

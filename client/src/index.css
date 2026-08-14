@@ -313,11 +313,24 @@ h1 em, h2 em { color: #b95043; font-weight: inherit; }
   .site-footer { grid-template-columns: 1.2fr 1fr; gap: 44px 22px; padding: 54px 0 25px; }
   .footer-brand { grid-column: 1 / -1; }
   .product-dialog-backdrop { align-items: end; padding: 0; }
-  .product-dialog { grid-template-columns: 112px 1fr; width: 100%; min-height: 0; max-height: calc(100vh - 14px); border-top: 5px solid var(--moss); overflow-y: auto; }
-  .dialog-image img { min-height: 100%; height: 100%; }
-  .dialog-content { padding: 44px 24px 28px; }
-  .dialog-content h2 { font-size: 42px; }
-  .dialog-share-grid { grid-template-columns: 1fr; }
+  .product-dialog { display: block; width: 100%; max-height: calc(100dvh - 10px); border-top: 5px solid var(--moss); border-radius: 18px 18px 0 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .dialog-close { top: 12px; right: 13px; width: 38px; height: 38px; box-shadow: 0 3px 12px rgba(32,55,44,.14); }
+  .dialog-image { height: min(32vh, 228px); min-height: 176px; padding: 8px; background: #eadfd5; }
+  .dialog-image img { width: 100%; height: 100%; min-height: 0; object-position: center; }
+  .dialog-content { padding: 23px 22px 30px; }
+  .dialog-content .eyebrow { max-width: calc(100% - 52px); margin-bottom: 12px; }
+  .dialog-content h2 { max-width: 100%; font-size: clamp(39px, 11vw, 50px); }
+  .dialog-price { margin: 10px 0 16px; }
+  .dialog-description { margin-bottom: 18px; font-size: 12px; line-height: 1.55; }
+  .dialog-colours { margin-bottom: 19px; padding: 12px 0 14px; }
+  .colour-row { gap: 10px; }
+  .colour-swatch { width: 30px; height: 30px; }
+  .chosen-colour { margin-top: 10px; font-size: 17px; }
+  .dialog-actions { gap: 8px; }
+  .dialog-action { min-height: 59px; padding: 12px 13px; }
+  .dialog-share-grid { grid-template-columns: 1fr; gap: 7px; }
+  .dialog-share { min-height: 43px; font-size: 9px; }
+  .dialog-note { margin-top: 17px; padding-top: 13px; font-size: 13px; }
 }
 @media (max-width: 430px) {
   .hero-actions { align-items: flex-start; flex-direction: column; gap: 18px; }
