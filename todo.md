@@ -18,3 +18,9 @@
 - [x] Validate the revised image scale and production build.
 - [x] Replace the heavy product-card frame with a cleaner white-background image treatment.
 - [x] Validate the updated catalogue treatment on mobile and desktop.
+- [x] Add a slide-down close animation to the mobile product drawer and its backdrop.
+- [x] Validate the drawer’s opening and closing animation with the production build.
+- [x] Convert the mobile navigation from a two-column panel to a vertical menu with full-width rows.
+- [x] Validate the combined drawer motion and vertical mobile navigation.
+- [x] Close the mobile menu when a visitor taps outside the menu panel or header trigger.
+- [x] Validate the completed mobile interaction set and production build.

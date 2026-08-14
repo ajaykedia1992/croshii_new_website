@@ -2,7 +2,7 @@
  * Garden Atelier Editorial — Croshii’s pages feel like a warm craft catalogue:
  * botanical still lifes, off-centre compositions, Croshii Moss actions, and precise serif/sans hierarchy.
  */
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -123,18 +123,38 @@ export default function Home() {
   const [showAll, setShowAll] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [isDrawerClosing, setIsDrawerClosing] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedProduct(null);
+      if (event.key === "Escape") closeProductDialog();
     };
     if (selectedProduct) window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [selectedProduct]);
 
+  useEffect(() => {
+    const closeMenuOnOutsidePress = (event: PointerEvent) => {
+      if (menuOpen && headerRef.current && !headerRef.current.contains(event.target as Node)) setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", closeMenuOnOutsidePress);
+    return () => document.removeEventListener("pointerdown", closeMenuOnOutsidePress);
+  }, [menuOpen]);
+
   const openProductDialog = (product: Product) => {
+    setIsDrawerClosing(false);
     setSelectedProduct(product);
     setSelectedColor(productColorOptions[product.code][0].name);
+  };
+
+  const closeProductDialog = () => {
+    if (!selectedProduct || isDrawerClosing) return;
+    setIsDrawerClosing(true);
+    window.setTimeout(() => {
+      setSelectedProduct(null);
+      setIsDrawerClosing(false);
+    }, 280);
   };
 
   const shareOnInstagram = async (product: Product, color: ProductColor) => {
@@ -161,7 +181,7 @@ export default function Home() {
         <span className="announcement-dot" aria-hidden="true" /> Free shipping within India on orders above ₹999
       </div>
 
-      <header className="site-header">
+      <header className="site-header" ref={headerRef}>
         <a className="brand-lockup" href="#top" aria-label="Croshii home" onClick={() => setMenuOpen(false)}>
           <img src="/manus-storage/croshii-yarn-knot-logo_aa63d3f3.png" alt="" className="brand-mark" />
           <span>croshii</span>
@@ -325,10 +345,10 @@ export default function Home() {
         const colors = productColorOptions[selectedProduct.code];
         const activeColor = colors.find((color) => color.name === selectedColor) ?? colors[0];
         return (
-        <div className="product-dialog-backdrop" role="presentation" onMouseDown={() => setSelectedProduct(null)}>
-          <section className="product-dialog" role="dialog" aria-modal="true" aria-labelledby="product-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
+        <div className={`product-dialog-backdrop ${isDrawerClosing ? "is-closing" : ""}`} role="presentation" onMouseDown={closeProductDialog}>
+          <section className={`product-dialog ${isDrawerClosing ? "is-closing" : ""}`} role="dialog" aria-modal="true" aria-labelledby="product-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
             <span className="dialog-drawer-handle" aria-hidden="true" />
-            <button type="button" className="dialog-close" aria-label="Close product contact options" onClick={() => setSelectedProduct(null)}><X size={19} /></button>
+            <button type="button" className="dialog-close" aria-label="Close product contact options" onClick={closeProductDialog}><X size={19} /></button>
             <div className="dialog-image"><img src={activeColor.image} alt={`${selectedProduct.name} in ${activeColor.name}`} /></div>
             <div className="dialog-content">
               <p className="eyebrow"><span>Studio pick</span> {selectedProduct.code}</p>

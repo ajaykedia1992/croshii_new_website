@@ -210,6 +210,8 @@ h1 em, h2 em { color: #b95043; font-weight: inherit; }
 .product-dialog-backdrop { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; padding: 24px; overflow-y: auto; background: rgba(24, 42, 33, .54); backdrop-filter: blur(8px); animation: dialog-fade-in 180ms var(--ease-out) both; }
 .product-dialog { position: relative; display: grid; grid-template-columns: minmax(220px, .84fr) minmax(315px, 1.16fr); width: min(780px, 100%); overflow: hidden; color: var(--ink); background: var(--paper); box-shadow: 0 28px 90px rgba(13, 29, 20, .35); animation: dialog-rise-in 250ms var(--ease-out) both; }
 .dialog-drawer-handle { display: none; }
+.product-dialog-backdrop.is-closing { pointer-events: none; animation: dialog-fade-out 260ms var(--ease-out) both; }
+.product-dialog.is-closing { animation: dialog-rise-out 260ms var(--ease-out) both; }
 .dialog-close { position: absolute; z-index: 3; top: 13px; right: 13px; display: grid; width: 36px; height: 36px; place-items: center; border-radius: 50%; color: var(--moss); background: rgba(255, 253, 248, .95); cursor: pointer; transition: transform 160ms var(--ease-out), background 160ms var(--ease-out); }
 .dialog-close:hover { background: #efe4d5; transform: rotate(8deg); }
 .dialog-close:active { transform: scale(.94); }
@@ -246,8 +248,11 @@ h1 em, h2 em { color: #b95043; font-weight: inherit; }
 .dialog-share:hover { color: var(--paper); background: #b95043; border-color: #b95043; transform: translateY(-2px); }
 .dialog-note { margin: 20px 0 0; padding-top: 15px; border-top: 1px solid var(--border); color: #7b877e; font-family: "DM Serif Display", Georgia, serif; font-size: 14px; font-style: italic; line-height: 1.25; }
 @keyframes dialog-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dialog-fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes dialog-rise-in { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes dialog-rise-out { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(14px) scale(.98); } }
 @keyframes drawer-slide-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes drawer-slide-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(100%); } }
 
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy, .hero-visual, .collection-heading, .product-card, .studio-feature, .gifting, .faq { animation: settle-in 700ms var(--ease-out) both; }
@@ -273,9 +278,10 @@ h1 em, h2 em { color: #b95043; font-weight: inherit; }
   .site-header, .hero, .section, .site-footer { width: min(100% - 36px, 1400px); }
   .site-header { min-height: 72px; }
   .mobile-toggle { display: flex; }
-  .site-nav { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: none; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 10px; border: 1px solid var(--border); background: rgba(255,252,247,.98); box-shadow: 0 20px 30px rgba(47,75,61,.12); }
+  .site-nav { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: none; grid-template-columns: 1fr; gap: 0; padding: 0; border: 1px solid var(--border); background: rgba(255,252,247,.98); box-shadow: 0 20px 30px rgba(47,75,61,.12); }
   .site-nav.is-open { display: grid; }
-  .site-nav > a { padding: 13px 11px; font-size: 9px; }
+  .site-nav > a { min-height: 52px; display: flex; align-items: center; padding: 15px 18px; border-bottom: 1px solid rgba(47,75,61,.12); font-size: 9px; }
+  .site-nav > a:last-child { border-bottom: 0; }
   .nav-order { justify-content: center; }
   .hero { min-height: auto; grid-template-columns: 1fr; gap: 37px; padding: 64px 0 54px; }
   .hero-copy { padding-bottom: 0; }
@@ -316,6 +322,7 @@ h1 em, h2 em { color: #b95043; font-weight: inherit; }
   .footer-brand { grid-column: 1 / -1; }
   .product-dialog-backdrop { align-items: end; padding: 0; }
   .product-dialog { display: block; width: 100%; max-height: min(86dvh, 740px); border-top: 5px solid var(--moss); border-radius: 22px 22px 0 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; animation: drawer-slide-in 360ms var(--ease-out) both; }
+  .product-dialog.is-closing { animation: drawer-slide-out 280ms var(--ease-out) both; }
   .dialog-drawer-handle { display: block; width: 44px; height: 4px; margin: 11px auto 0; border-radius: 999px; background: rgba(47,75,61,.29); }
   .dialog-close { top: 12px; right: 13px; width: 38px; height: 38px; box-shadow: 0 3px 12px rgba(32,55,44,.14); }
   .dialog-image { width: min(calc(100% - 34px), 310px); height: auto; min-height: 0; aspect-ratio: 1; margin: 12px auto 0; padding: 0; background: #f3ece4; }
