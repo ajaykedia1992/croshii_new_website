@@ -45,6 +45,6 @@
 - [x] Remove the stray `@@` text rendered after the storefront footer.
 - [x] Add a client-side deterrent that disables the standard right-click context menu.
 - [x] Add a client-side deterrent for common developer-tool keyboard shortcuts, including F12.
-- [ ] Build, deploy, and verify the page-artifact correction and interaction deterrents.
+- [x] Build, deploy, and verify the page-artifact correction and interaction deterrents.
 - [x] Replace GitHub Pages URLs in canonical metadata, social metadata, structured data, and the sitemap with https://www.croshii.com/.
-- [ ] Build and verify the SEO domain migration before the future custom domain is connected.
+- [x] Build and verify the SEO domain migration before the future custom domain is connected.
